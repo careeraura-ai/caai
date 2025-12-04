@@ -1,0 +1,523 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme variables */
+:root {
+  --accent: #ffd166;
+  --dark-bg: #0f172a;
+  --light-bg: #eef6ff;
+}
+
+/* serif display for headings */
+.font-serif-display {
+  font-family: "Georgia", "Times New Roman", serif;
+  letter-spacing: -0.02em;
+}
+
+body {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+body.page-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* small helpers used by JS hooks */
+.reveal-word { display:inline-block; opacity:0; transform: translateY(12px); }
+.reveal.show, .reveal.visible, .reveal-word.show { opacity:1; transform: translateY(0); }
+
+/* step circle (tailwind @apply alternative if not using @apply) */
+.step-circle {
+  width: 40px; height: 40px; border-radius: 9999px;
+  background: var(--accent); color: #000; display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+
+/* glass list and card tag */
+.card-tag { padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.85); color: #001; font-weight:600; }
+.glass-list { padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.07); backdrop-filter: blur(6px); }
+
+/* floating-card */
+.floating-card { border-radius: 20px; padding: 8px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow: 0 22px 60px rgba(2,6,23,0.7); transform: translateZ(0); }
+
+/* video-card */
+.video-card { width:100%; max-width:900px; border-radius: 18px; overflow:hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+
+/* ensure body page load class toggles */
+body { opacity: 0; transform: translateY(8px); transition: opacity .8s ease, transform .9s cubic-bezier(.22,1,.36,1); }
+body.page-loaded { opacity: 1; transform: translateY(0); }
+
+/* small responsive tweaks */
+@media (max-width: 768px) {
+  .floating-card { padding: 6px; }
+  .video-card { border-radius: 12px; }
+}
+/* Base Styling */
+html, body, #root {
+  height: 100%;
+  background: var(--dark-bg);
+  color: white;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/* Floating Animation */
+.float {
+  animation: floatAnim 6s ease-in-out infinite;
+}
+
+@keyframes floatAnim {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Button Shine */
+.btn-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-animate::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 200%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transition: 0.4s ease;
+}
+
+.btn-animate:hover::after {
+  left: 100%;
+}
+
+/* Section heading glow */
+.section-title:hover {
+  text-shadow: 0 0 16px rgba(255,255,255,0.65);
+}
+/* Fade in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title glow on hover */
+.section-title {
+  transition: 0.3s ease;
+}
+
+.section-title:hover {
+  text-shadow: 0 0 14px rgba(255,255,255,0.6);
+}
+
+/* Section hover lift */
+.section-hover {
+  transition: 0.4s ease;
+}
+
+.section-hover:hover {
+  transform: translateY(-6px);
+}
+
+/* Float animation */
+.float {
+  animation: floatAnim 6s ease-in-out infinite;
+}
+
+@keyframes floatAnim {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Button shimmer */
+.btn-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-animate::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 200%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: 0.4s;
+}
+
+.btn-animate:hover::after {
+  left: 100%;
+}
+
+/* ===== Reveal / fade-in ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s cubic-bezier(.2,.9,.3,1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Gradient text used in hero ===== */
+.gradient-text {
+  background: linear-gradient(90deg, #7c5cff 0%, #4cc9f0 50%, #ffd166 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* ===== Buttons & microinteractions ===== */
+.btn-animate {
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.btn-animate:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 18px 30px rgba(12,15,40,0.45);
+}
+
+/* small shimmer on CTA */
+.btn-animate::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -110%;
+  width: 220%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.14), transparent);
+  transform: skewX(-12deg);
+  transition: left .75s cubic-bezier(.2,.9,.3,1);
+}
+.btn-animate:hover::after { left: 100%; }
+
+/* ===== Floating card style ===== */
+.float {
+  will-change: transform;
+}
+
+/* ===== Header styling adjustments (already in your index.css but ensure contrast) ===== */
+header a { color: rgba(255,255,255,0.9); }
+
+/* ===== Accessibility: focus outlines for keyboard users ===== */
+a:focus, button:focus, input:focus {
+  outline: 3px solid rgba(99,102,241,0.18);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ===== Section hover lift (desktop only) ===== */
+@media (hover: hover) {
+  .section-hover { transition: transform .35s ease; }
+  .section-hover:hover { transform: translateY(-6px); }
+}
+
+/* ===== Small screens polish ===== */
+@media (max-width: 768px) {
+  .gradient-text { font-size: inherit; }
+  header { position: sticky; }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(.2,.9,.3,1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-hover {
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+.section-hover:hover {
+  transform: translateY(-6px);
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Glow gradient title */
+.gradient-text-strong {
+  background: linear-gradient(90deg, #ffd166, #ffb703, #ff7b00);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+/* Glass + blur */
+.glass-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  transition: 0.3s ease;
+}
+.glass-card:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-4px);
+}
+
+/* Floating card effect */
+.floating-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 24px;
+  padding: 10px;
+  backdrop-filter: blur(6px);
+  animation: breathe 6s ease-in-out infinite;
+  transition: 0.5s ease;
+}
+@keyframes breathe {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-12px) scale(1.02); }
+  100% { transform: translateY(0px) scale(1); }
+}
+
+/* Alt floating card (light sections) */
+.floating-card-alt {
+  background: rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 10px;
+  animation: breathe 6s ease-in-out infinite;
+}
+
+/* Video card */
+.video-card {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  transition: 0.4s;
+}
+.video-card:hover {
+  transform: scale(1.02);
+}
+
+/* Section titles */
+.section-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+}
+.section-heading-dark {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #000435;
+  margin-bottom: 16px;
+}
+
+/* Button flash effect */
+.btn-flash {
+  position: relative;
+  overflow: hidden;
+}
+.btn-flash::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -150%;
+  height: 100%; width: 150%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: 0.5s;
+}
+.btn-flash:hover::after {
+  left: 150%;
+}
+
+/* Floating blobs */
+.shape-blob {
+  position: fixed;
+  top: 10%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(100px);
+  border-radius: 50%;
+  z-index: -1;
+  animation: blobMove 12s infinite alternate ease-in-out;
+}
+.shape-blob-one {
+  position: fixed;
+  bottom: 15%;
+  right: -10%;
+  width: 450px;
+  height:450px;
+  background: rgba(255,200,150,0.07);
+  border-radius: 50%;
+  z-index: -1;
+  animation: blobMove 14s infinite alternate ease-in-out;
+}
+
+@keyframes blobMove {
+  0% { transform: translate(0,0) scale(1); }
+  100% { transform: translate(50px, -60px) scale(1.2); }
+}
+
+/* Scroll fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(.2,.9,.3,1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ULTRA PREMIUM CSS ADDITIONS */
+
+/* ===== Fade-in reveal (used by useScrollAnimation) ===== */
+.fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(.2,.9,.3,1); }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== Glass cards & floating ===== */
+.glass-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); border-radius: 12px; }
+.btn-flash { position: relative; overflow: hidden; transition: transform .18s ease; }
+.btn-flash::after { content:""; position:absolute; top:0; left:-120%; width:240%; height:100%; background:linear-gradient(120deg, transparent, rgba(255,255,255,0.18), transparent); transform: skewX(-12deg); transition: left .75s; }
+.btn-flash:hover::after { left: 120%; }
+
+/* ===== floating-card / tilt visuals ===== */
+.floating-card { border-radius: 24px; padding: 8px; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); box-shadow: 0 20px 60px rgba(2,6,23,0.7); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.floating-card-alt { border-radius: 20px; padding: 8px; background: rgba(255,255,255,0.85); }
+
+/* ===== particles container already absolute (component) ===== */
+
+/* ===== shape blobs already added earlier; add morphing animation ===== */
+@keyframes morph {
+  0% { filter: hue-rotate(0deg); transform: translate3d(0,0,0) scale(1); }
+  50% { filter: hue-rotate(40deg); transform: translate3d(20px,-20px,0) scale(1.05); }
+  100% { filter: hue-rotate(0deg); transform: translate3d(0,0,0) scale(1); }
+}
+.shape-blob, .shape-blob-one { animation: morph 14s ease-in-out infinite; }
+
+/* ===== hero reveal text (useTextReveal) ===== */
+.reveal-word { display:inline-block; opacity:0; transform: translateY(12px); }
+
+/* ===== responsive polish ===== */
+@media (max-width: 768px) {
+  .floating-card { padding: 6px; }
+  .btn-flash { padding: 10px 16px; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-text {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* PAGE LOAD ANIMATION */
+body {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.9s ease, transform 1s cubic-bezier(.22,1,.36,1);
+}
+
+body.page-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.word {
+  opacity: 0;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #ffd166, #a8e0ff, #ff9cee);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.step-circle {
+  @apply w-10 h-10 rounded-full bg-accent flex items-center justify-center 
+         text-[var(--dark-bg)] font-bold shadow-lg;
+}
+.glass-list {
+  @apply p-4 rounded-xl bg-white/10 backdrop-blur-lg border border-white/10 shadow;
+}
+
+.card-tag {
+  @apply p-4 rounded-xl bg-white/70 shadow text-[var(--dark-bg)] font-medium;
+}
+
+
+
+/* glass card */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* floating card (home card) */
+.floating-card {
+  transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s ease;
+  will-change: transform;
+}
+.floating-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.55);
+}
+
+/* button micro interactions already in your index.css; ensure these exist */
+.btn-animate {
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.btn-animate:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 18px 30px rgba(12,15,40,0.45);
+}
+.btn-animate::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -110%;
+  width: 220%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.14), transparent);
+  transform: skewX(-12deg);
+  transition: left .75s cubic-bezier(.2,.9,.3,1);
+}
+.btn-animate:hover::after { left: 100%; }
+
+/* small responsive fixes for app layout */
+@media (max-width: 900px) {
+  aside { position: fixed; left: 0; top: 0; bottom: 0; z-index: 30; }
+  main { padding: 1rem; }
+}
+
+/* ensure accent text variable exists */
+.text-accent { color: var(--accent); }
+
+/* If you use font-heading and font-family */
+@layer components {
+  .font-heading { font-family: "Times New Roman", serif; } /* replace with your premium serif if available */
+}
